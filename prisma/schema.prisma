@@ -12,3 +12,122 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+
+//////////////////////////////////////////////////////
+// ENUMS
+//////////////////////////////////////////////////////
+
+enum UserRole {
+  CLIENT
+  EXPERT
+}
+
+enum ServiceMode {
+  SERVICIO
+  MENTORIA
+}
+
+enum InteractionType {
+  VIDEO_CALL
+  CHAT
+  LIVE_CODING
+}
+
+enum BookingStatus {
+  PENDIENTE
+  CONFIRMADA
+  COMPLETADA
+  CANCELADA
+}
+
+enum PaymentStatus {
+  PENDIENTE
+  PAGADO
+  FALLIDO
+}
+
+//////////////////////////////////////////////////////
+// MODELOS
+//////////////////////////////////////////////////////
+
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  password  String
+  role      UserRole
+  createdAt DateTime  @default(now())
+
+  services  Service[]   // Si es experto
+  bookings  Booking[]   // Si es cliente
+}
+
+//////////////////////////////////////////////////////
+// SERVICIOS
+//////////////////////////////////////////////////////
+
+model Service {
+  id              String          @id @default(uuid())
+  title           String
+  description     String
+  price           Float
+  mode            ServiceMode
+  interactionType InteractionType
+  createdAt       DateTime        @default(now())
+
+  expertId        String
+  expert          User            @relation(fields: [expertId], references: [id])
+
+  bookings        Booking[]
+  steps           MentorshipStep[]
+}
+
+//////////////////////////////////////////////////////
+// RESERVAS
+//////////////////////////////////////////////////////
+
+model Booking {
+  id          String        @id @default(uuid())
+  scheduledAt DateTime
+  status      BookingStatus @default(PENDIENTE)
+  createdAt   DateTime      @default(now())
+
+  serviceId   String
+  service     Service       @relation(fields: [serviceId], references: [id])
+
+  clientId    String
+  client      User          @relation(fields: [clientId], references: [id])
+
+  payment     Payment?
+}
+
+//////////////////////////////////////////////////////
+// PAGOS
+//////////////////////////////////////////////////////
+
+model Payment {
+  id         String        @id @default(uuid())
+  amount     Float
+  status     PaymentStatus @default(PENDIENTE)
+  createdAt  DateTime      @default(now())
+
+  bookingId  String        @unique
+  booking    Booking       @relation(fields: [bookingId], references: [id])
+}
+
+//////////////////////////////////////////////////////
+// PASOS DE MENTORIA (Para Iterator)
+//////////////////////////////////////////////////////
+
+model MentorshipStep {
+  id        String   @id @default(uuid())
+  order     Int
+  title     String
+  completed Boolean  @default(false)
+
+  serviceId String
+  service   Service  @relation(fields: [serviceId], references: [id])
+
+  @@unique([serviceId, order])
+}
