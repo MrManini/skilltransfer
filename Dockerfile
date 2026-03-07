@@ -29,15 +29,16 @@ ENV NODE_ENV=production
 COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/package.json ./
 COPY --from=builder /usr/src/app/node_modules ./node_modules
-COPY --from=builder /usr/src/app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder /usr/src/app/generated ./generated
 
-# Copiar directorio de prisma para las migraciones Y el archivo de seeding
+# Copiar directorio de prisma para las migraciones
 COPY --from=builder /usr/src/app/prisma ./prisma
-COPY --from=builder /usr/src/app/seed.ts ./seed.ts
-COPY --from=builder /usr/src/app/entrypoint.sh ./entrypoint.sh
 
-RUN chmod +x ./entrypoint.sh
+# Copiar entrypoint
+COPY docker-entrypoint.sh ./
+
+RUN chmod +x ./docker-entrypoint.sh
 
 EXPOSE 3000
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD ["node", "dist/src/main.js"]
