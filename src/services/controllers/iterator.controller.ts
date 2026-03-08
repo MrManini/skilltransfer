@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common'
+import { Controller, Get, Post, Param } from '@nestjs/common'
 import { IteratorService } from '../iterator.service.js'
 
 @Controller('iterator')
@@ -6,12 +6,20 @@ export class IteratorController {
 
   constructor(private servicesService: IteratorService) {}
 
-  @Get(':serviceId/next-step/:clientId')
-  async getNextStep(
+  @Get(':serviceId/next-step/:bookingId')
+getNextStep(
+  @Param('serviceId') serviceId: string,
+  @Param('bookingId') bookingId: string
+){
+  return this.servicesService.getNextStep(serviceId, bookingId)
+}
+
+  @Post(':serviceId/complete-step/:bookingId')
+  completeStep(
     @Param('serviceId') serviceId: string,
-    @Param('clientId') clientId: string
-  ) {
-    return this.servicesService.getNextStep(serviceId, clientId)
+    @Param('bookingId') bookingId: string
+  ){
+    return this.servicesService.completeStep(serviceId, bookingId)
   }
 
 }

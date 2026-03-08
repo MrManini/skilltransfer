@@ -23,7 +23,7 @@ export class BookingService {
   
     const data = steps.map(step => ({
       bookingId: bookingId,
-      clientId: clientId, // 👈 agregar
+      clientId: clientId, // agregar
       mentorshipStepId: step.id,
       completed: false
     }))
