@@ -6,7 +6,7 @@ interface BookingState {
   cancel(context: BookingContext): void
 }
 
-class BookingContext {
+export class BookingContext {
 
   private state: BookingState
 
