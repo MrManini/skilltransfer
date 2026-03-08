@@ -1,57 +1,111 @@
--- ==========================================================
--- 1. USUARIOS (CLIENTE Y EXPERTO)
--- ========================== ================================
+--------------------------------------------------
+-- USUARIOS
+--------------------------------------------------
 
-INSERT INTO "User" (id, name, email, password, role, "createdAt")
-VALUES 
-('u-client-001', 'Carlos Cliente', 'carlos@ejemplo.com', 'pass_hash_1', 'CLIENT', NOW()),
-('u-expert-999', 'Ana Expert', 'ana.tech@ejemplo.com', 'pass_hash_2', 'EXPERT', NOW());
+INSERT INTO "User" ("id", "name", "email", "password", "role", "createdAt")
+VALUES
+('client-1', 'Juan Cliente', 'cliente@test.com', '123456', 'CLIENT', NOW()),
+('expert-1', 'Ana Experta', 'experto@test.com', '123456', 'EXPERT', NOW());
 
--- ==========================================================
--- 2. SERVICIOS (AMBOS DEL MISMO EXPERTO)
--- ==========================================================
 
--- Servicio A: Auditoría
-INSERT INTO "Service" (id, title, description, price, mode, "interactionType", "expertId", "createdAt")
-VALUES (
-    'srv-auditoria', 
-    'Auditoría de Seguridad Web', 
-    'Análisis de vulnerabilidades y reporte técnico.', 
-    150.00, 
-    'SERVICIO', 
-    'VIDEO_CALL', 
-    'u-expert-999', 
-    NOW()
+--------------------------------------------------
+-- SERVICIOS DEL EXPERTO
+--------------------------------------------------
+
+INSERT INTO "Service" (
+"id",
+"title",
+"description",
+"price",
+"mode",
+"interactionType",
+"createdAt",
+"expertId"
+)
+VALUES
+(
+'service-1',
+'Aprende Backend con NestJS',
+'Te enseño arquitectura backend paso a paso',
+120,
+'MENTORIA',
+'LIVE_CODING',
+NOW(),
+'expert-1'
+),
+(
+'service-2',
+'Debugging Profesional',
+'Te ayudo a encontrar errores en tu código',
+80,
+'HIBRIDO',
+'VIDEO_CALL',
+NOW(),
+'expert-1'
+),
+(
+'service-3',
+'Desarrollo de API por encargo',
+'Yo desarrollo la API completa por ti',
+300,
+'EJECUTADO',
+'NONE',
+NOW(),
+'expert-1'
 );
 
--- Servicio B: Mentoría
-INSERT INTO "Service" (id, title, description, price, mode, "interactionType", "expertId", "createdAt")
-----
-VALUES (
-    'srv-mentoria-sql', 
-    'Masterclass SQL y Prisma', 
-    'Aprende a modelar bases de datos como un profesional.', 
-    200.00, 
-    'MENTORIA', 
-    'LIVE_CODING', 
-    'u-expert-999', 
-    NOW()
+
+--------------------------------------------------
+-- PASOS DE MENTORIA DEL SERVICIO 1
+--------------------------------------------------
+
+INSERT INTO "MentorshipStep" (
+"id",
+"order",
+"title",
+"serviceId"
+)
+VALUES
+(
+'step-1',
+1,
+'Introducción a arquitectura backend',
+'service-1'
+),
+(
+'step-2',
+2,
+'Creación de API con NestJS',
+'service-1'
+),
+(
+'step-3',
+3,
+'Integración con base de datos',
+'service-1'
 );
 
--- ==========================================================
--- 3. PASOS DE MENTORÍA (PARA AMBOS SERVICIOS)
--- ==========================================================
 
--- Pasos para 'Auditoría de Seguridad Web' (srv-auditoria)
-INSERT INTO "MentorshipStep" (id, "order", title, completed, "serviceId")
-VALUES 
-('step-aud-1', 1, 'Escaneo inicial de puertos y servicios', false, 'srv-auditoria'),
-('step-aud-2', 2, 'Pruebas de inyección y autenticación', false, 'srv-auditoria'),
-('step-aud-3', 3, 'Entrega de informe de remediación', false, 'srv-auditoria');
+--------------------------------------------------
+-- PASOS DE MENTORIA DEL SERVICIO 2
+--------------------------------------------------
 
--- Pasos para 'Masterclass SQL y Prisma' (srv-mentoria-sql)
-INSERT INTO "MentorshipStep" (id, "order", title, completed, "serviceId")
-VALUES 
-('step-sql-1', 1, 'Diseño de esquema y relaciones', false, 'srv-mentoria-sql'),
-('step-sql-2', 2, 'Configuración de Prisma Client', false, 'srv-mentoria-sql'),
-('step-sql-3', 3, 'Optimización de queries y desplegue', false, 'srv-mentoria-sql');
+INSERT INTO "MentorshipStep" (
+"id",
+"order",
+"title",
+"serviceId"
+)
+VALUES
+(
+'step-4',
+1,
+'Analizar el problema',
+'service-2'
+),
+(
+'step-5',
+2,
+'Debugging paso a paso',
+'service-2'
+);

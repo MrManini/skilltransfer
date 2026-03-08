@@ -1,8 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// This is your Prisma schema file
 
 generator client {
   provider = "prisma-client"
@@ -12,7 +8,6 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
-
 
 //////////////////////////////////////////////////////
 // ENUMS
@@ -24,14 +19,16 @@ enum UserRole {
 }
 
 enum ServiceMode {
-  SERVICIO
+  HIBRIDO
   MENTORIA
+  EJECUTADO
 }
 
 enum InteractionType {
   VIDEO_CALL
   CHAT
   LIVE_CODING
+  NONE
 }
 
 enum BookingStatus {
@@ -41,26 +38,22 @@ enum BookingStatus {
   CANCELADA
 }
 
-enum PaymentStatus {
-  PENDIENTE
-  PAGADO
-  FALLIDO
-}
-
 //////////////////////////////////////////////////////
 // MODELOS
 //////////////////////////////////////////////////////
 
 model User {
-  id        String    @id @default(uuid())
+  id        String   @id @default(uuid())
   name      String
-  email     String    @unique
+  email     String   @unique
   password  String
   role      UserRole
-  createdAt DateTime  @default(now())
+  createdAt DateTime @default(now())
 
-  services  Service[]   // Si es experto
-  bookings  Booking[]   // Si es cliente
+  services  Service[]  // si es experto
+  bookings  Booking[]  // si es cliente
+
+  stepProgress MentorshipStepProgress[]
 }
 
 //////////////////////////////////////////////////////
@@ -98,36 +91,39 @@ model Booking {
 
   clientId    String
   client      User          @relation(fields: [clientId], references: [id])
-
-  payment     Payment?
 }
 
 //////////////////////////////////////////////////////
-// PAGOS
-//////////////////////////////////////////////////////
-
-model Payment {
-  id         String        @id @default(uuid())
-  amount     Float
-  status     PaymentStatus @default(PENDIENTE)
-  createdAt  DateTime      @default(now())
-
-  bookingId  String        @unique
-  booking    Booking       @relation(fields: [bookingId], references: [id])
-}
-
-//////////////////////////////////////////////////////
-// PASOS DE MENTORIA (Para Iterator)
+// PASOS DE MENTORIA
 //////////////////////////////////////////////////////
 
 model MentorshipStep {
   id        String   @id @default(uuid())
   order     Int
   title     String
-  completed Boolean  @default(false)
 
   serviceId String
   service   Service  @relation(fields: [serviceId], references: [id])
 
+  progress  MentorshipStepProgress[]
+
   @@unique([serviceId, order])
+}
+
+//////////////////////////////////////////////////////
+// PROGRESO DEL CLIENTE EN LOS PASOS
+//////////////////////////////////////////////////////
+
+model MentorshipStepProgress {
+  id               String   @id @default(uuid())
+  completed        Boolean  @default(false)
+  createdAt        DateTime @default(now())
+
+  clientId         String
+  client           User     @relation(fields: [clientId], references: [id])
+
+  mentorshipStepId String
+  mentorshipStep   MentorshipStep @relation(fields: [mentorshipStepId], references: [id])
+
+  @@unique([clientId, mentorshipStepId])
 }
