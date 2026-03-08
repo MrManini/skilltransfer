@@ -33,12 +33,12 @@ export type Service = Prisma.ServiceModel
  */
 export type Booking = Prisma.BookingModel
 /**
- * Model Payment
- * 
- */
-export type Payment = Prisma.PaymentModel
-/**
  * Model MentorshipStep
  * 
  */
 export type MentorshipStep = Prisma.MentorshipStepModel
+/**
+ * Model MentorshipStepProgress
+ * 
+ */
+export type MentorshipStepProgress = Prisma.MentorshipStepProgressModel

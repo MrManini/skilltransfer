@@ -18,8 +18,9 @@ export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
 export const ServiceMode = {
-  SERVICIO: 'SERVICIO',
-  MENTORIA: 'MENTORIA'
+  HIBRIDO: 'HIBRIDO',
+  MENTORIA: 'MENTORIA',
+  EJECUTADO: 'EJECUTADO'
 } as const
 
 export type ServiceMode = (typeof ServiceMode)[keyof typeof ServiceMode]
@@ -28,7 +29,8 @@ export type ServiceMode = (typeof ServiceMode)[keyof typeof ServiceMode]
 export const InteractionType = {
   VIDEO_CALL: 'VIDEO_CALL',
   CHAT: 'CHAT',
-  LIVE_CODING: 'LIVE_CODING'
+  LIVE_CODING: 'LIVE_CODING',
+  NONE: 'NONE'
 } as const
 
 export type InteractionType = (typeof InteractionType)[keyof typeof InteractionType]
@@ -42,12 +44,3 @@ export const BookingStatus = {
 } as const
 
 export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
-
-
-export const PaymentStatus = {
-  PENDIENTE: 'PENDIENTE',
-  PAGADO: 'PAGADO',
-  FALLIDO: 'FALLIDO'
-} as const
-
-export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]

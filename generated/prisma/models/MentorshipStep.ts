@@ -38,7 +38,6 @@ export type MentorshipStepMinAggregateOutputType = {
   id: string | null
   order: number | null
   title: string | null
-  completed: boolean | null
   serviceId: string | null
 }
 
@@ -46,7 +45,6 @@ export type MentorshipStepMaxAggregateOutputType = {
   id: string | null
   order: number | null
   title: string | null
-  completed: boolean | null
   serviceId: string | null
 }
 
@@ -54,7 +52,6 @@ export type MentorshipStepCountAggregateOutputType = {
   id: number
   order: number
   title: number
-  completed: number
   serviceId: number
   _all: number
 }
@@ -72,7 +69,6 @@ export type MentorshipStepMinAggregateInputType = {
   id?: true
   order?: true
   title?: true
-  completed?: true
   serviceId?: true
 }
 
@@ -80,7 +76,6 @@ export type MentorshipStepMaxAggregateInputType = {
   id?: true
   order?: true
   title?: true
-  completed?: true
   serviceId?: true
 }
 
@@ -88,7 +83,6 @@ export type MentorshipStepCountAggregateInputType = {
   id?: true
   order?: true
   title?: true
-  completed?: true
   serviceId?: true
   _all?: true
 }
@@ -183,7 +177,6 @@ export type MentorshipStepGroupByOutputType = {
   id: string
   order: number
   title: string
-  completed: boolean
   serviceId: string
   _count: MentorshipStepCountAggregateOutputType | null
   _avg: MentorshipStepAvgAggregateOutputType | null
@@ -214,18 +207,18 @@ export type MentorshipStepWhereInput = {
   id?: Prisma.StringFilter<"MentorshipStep"> | string
   order?: Prisma.IntFilter<"MentorshipStep"> | number
   title?: Prisma.StringFilter<"MentorshipStep"> | string
-  completed?: Prisma.BoolFilter<"MentorshipStep"> | boolean
   serviceId?: Prisma.StringFilter<"MentorshipStep"> | string
   service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>
+  progress?: Prisma.MentorshipStepProgressListRelationFilter
 }
 
 export type MentorshipStepOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   order?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
   service?: Prisma.ServiceOrderByWithRelationInput
+  progress?: Prisma.MentorshipStepProgressOrderByRelationAggregateInput
 }
 
 export type MentorshipStepWhereUniqueInput = Prisma.AtLeast<{
@@ -236,16 +229,15 @@ export type MentorshipStepWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.MentorshipStepWhereInput | Prisma.MentorshipStepWhereInput[]
   order?: Prisma.IntFilter<"MentorshipStep"> | number
   title?: Prisma.StringFilter<"MentorshipStep"> | string
-  completed?: Prisma.BoolFilter<"MentorshipStep"> | boolean
   serviceId?: Prisma.StringFilter<"MentorshipStep"> | string
   service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>
+  progress?: Prisma.MentorshipStepProgressListRelationFilter
 }, "id" | "serviceId_order">
 
 export type MentorshipStepOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   order?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
   _count?: Prisma.MentorshipStepCountOrderByAggregateInput
   _avg?: Prisma.MentorshipStepAvgOrderByAggregateInput
@@ -261,7 +253,6 @@ export type MentorshipStepScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"MentorshipStep"> | string
   order?: Prisma.IntWithAggregatesFilter<"MentorshipStep"> | number
   title?: Prisma.StringWithAggregatesFilter<"MentorshipStep"> | string
-  completed?: Prisma.BoolWithAggregatesFilter<"MentorshipStep"> | boolean
   serviceId?: Prisma.StringWithAggregatesFilter<"MentorshipStep"> | string
 }
 
@@ -269,39 +260,38 @@ export type MentorshipStepCreateInput = {
   id?: string
   order: number
   title: string
-  completed?: boolean
   service: Prisma.ServiceCreateNestedOneWithoutStepsInput
+  progress?: Prisma.MentorshipStepProgressCreateNestedManyWithoutMentorshipStepInput
 }
 
 export type MentorshipStepUncheckedCreateInput = {
   id?: string
   order: number
   title: string
-  completed?: boolean
   serviceId: string
+  progress?: Prisma.MentorshipStepProgressUncheckedCreateNestedManyWithoutMentorshipStepInput
 }
 
 export type MentorshipStepUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   service?: Prisma.ServiceUpdateOneRequiredWithoutStepsNestedInput
+  progress?: Prisma.MentorshipStepProgressUpdateManyWithoutMentorshipStepNestedInput
 }
 
 export type MentorshipStepUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  progress?: Prisma.MentorshipStepProgressUncheckedUpdateManyWithoutMentorshipStepNestedInput
 }
 
 export type MentorshipStepCreateManyInput = {
   id?: string
   order: number
   title: string
-  completed?: boolean
   serviceId: string
 }
 
@@ -309,14 +299,12 @@ export type MentorshipStepUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type MentorshipStepUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   serviceId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -339,7 +327,6 @@ export type MentorshipStepCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   order?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
 }
 
@@ -351,7 +338,6 @@ export type MentorshipStepMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   order?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
 }
 
@@ -359,12 +345,16 @@ export type MentorshipStepMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   order?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
   serviceId?: Prisma.SortOrder
 }
 
 export type MentorshipStepSumOrderByAggregateInput = {
   order?: Prisma.SortOrder
+}
+
+export type MentorshipStepScalarRelationFilter = {
+  is?: Prisma.MentorshipStepWhereInput
+  isNot?: Prisma.MentorshipStepWhereInput
 }
 
 export type MentorshipStepCreateNestedManyWithoutServiceInput = {
@@ -417,22 +407,32 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
+export type MentorshipStepCreateNestedOneWithoutProgressInput = {
+  create?: Prisma.XOR<Prisma.MentorshipStepCreateWithoutProgressInput, Prisma.MentorshipStepUncheckedCreateWithoutProgressInput>
+  connectOrCreate?: Prisma.MentorshipStepCreateOrConnectWithoutProgressInput
+  connect?: Prisma.MentorshipStepWhereUniqueInput
+}
+
+export type MentorshipStepUpdateOneRequiredWithoutProgressNestedInput = {
+  create?: Prisma.XOR<Prisma.MentorshipStepCreateWithoutProgressInput, Prisma.MentorshipStepUncheckedCreateWithoutProgressInput>
+  connectOrCreate?: Prisma.MentorshipStepCreateOrConnectWithoutProgressInput
+  upsert?: Prisma.MentorshipStepUpsertWithoutProgressInput
+  connect?: Prisma.MentorshipStepWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MentorshipStepUpdateToOneWithWhereWithoutProgressInput, Prisma.MentorshipStepUpdateWithoutProgressInput>, Prisma.MentorshipStepUncheckedUpdateWithoutProgressInput>
 }
 
 export type MentorshipStepCreateWithoutServiceInput = {
   id?: string
   order: number
   title: string
-  completed?: boolean
+  progress?: Prisma.MentorshipStepProgressCreateNestedManyWithoutMentorshipStepInput
 }
 
 export type MentorshipStepUncheckedCreateWithoutServiceInput = {
   id?: string
   order: number
   title: string
-  completed?: boolean
+  progress?: Prisma.MentorshipStepProgressUncheckedCreateNestedManyWithoutMentorshipStepInput
 }
 
 export type MentorshipStepCreateOrConnectWithoutServiceInput = {
@@ -468,54 +468,124 @@ export type MentorshipStepScalarWhereInput = {
   id?: Prisma.StringFilter<"MentorshipStep"> | string
   order?: Prisma.IntFilter<"MentorshipStep"> | number
   title?: Prisma.StringFilter<"MentorshipStep"> | string
-  completed?: Prisma.BoolFilter<"MentorshipStep"> | boolean
   serviceId?: Prisma.StringFilter<"MentorshipStep"> | string
+}
+
+export type MentorshipStepCreateWithoutProgressInput = {
+  id?: string
+  order: number
+  title: string
+  service: Prisma.ServiceCreateNestedOneWithoutStepsInput
+}
+
+export type MentorshipStepUncheckedCreateWithoutProgressInput = {
+  id?: string
+  order: number
+  title: string
+  serviceId: string
+}
+
+export type MentorshipStepCreateOrConnectWithoutProgressInput = {
+  where: Prisma.MentorshipStepWhereUniqueInput
+  create: Prisma.XOR<Prisma.MentorshipStepCreateWithoutProgressInput, Prisma.MentorshipStepUncheckedCreateWithoutProgressInput>
+}
+
+export type MentorshipStepUpsertWithoutProgressInput = {
+  update: Prisma.XOR<Prisma.MentorshipStepUpdateWithoutProgressInput, Prisma.MentorshipStepUncheckedUpdateWithoutProgressInput>
+  create: Prisma.XOR<Prisma.MentorshipStepCreateWithoutProgressInput, Prisma.MentorshipStepUncheckedCreateWithoutProgressInput>
+  where?: Prisma.MentorshipStepWhereInput
+}
+
+export type MentorshipStepUpdateToOneWithWhereWithoutProgressInput = {
+  where?: Prisma.MentorshipStepWhereInput
+  data: Prisma.XOR<Prisma.MentorshipStepUpdateWithoutProgressInput, Prisma.MentorshipStepUncheckedUpdateWithoutProgressInput>
+}
+
+export type MentorshipStepUpdateWithoutProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  service?: Prisma.ServiceUpdateOneRequiredWithoutStepsNestedInput
+}
+
+export type MentorshipStepUncheckedUpdateWithoutProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type MentorshipStepCreateManyServiceInput = {
   id?: string
   order: number
   title: string
-  completed?: boolean
 }
 
 export type MentorshipStepUpdateWithoutServiceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  progress?: Prisma.MentorshipStepProgressUpdateManyWithoutMentorshipStepNestedInput
 }
 
 export type MentorshipStepUncheckedUpdateWithoutServiceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  progress?: Prisma.MentorshipStepProgressUncheckedUpdateManyWithoutMentorshipStepNestedInput
 }
 
 export type MentorshipStepUncheckedUpdateManyWithoutServiceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
+
+/**
+ * Count Type MentorshipStepCountOutputType
+ */
+
+export type MentorshipStepCountOutputType = {
+  progress: number
+}
+
+export type MentorshipStepCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  progress?: boolean | MentorshipStepCountOutputTypeCountProgressArgs
+}
+
+/**
+ * MentorshipStepCountOutputType without action
+ */
+export type MentorshipStepCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MentorshipStepCountOutputType
+   */
+  select?: Prisma.MentorshipStepCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * MentorshipStepCountOutputType without action
+ */
+export type MentorshipStepCountOutputTypeCountProgressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MentorshipStepProgressWhereInput
+}
 
 
 export type MentorshipStepSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   order?: boolean
   title?: boolean
-  completed?: boolean
   serviceId?: boolean
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
+  progress?: boolean | Prisma.MentorshipStep$progressArgs<ExtArgs>
+  _count?: boolean | Prisma.MentorshipStepCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mentorshipStep"]>
 
 export type MentorshipStepSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   order?: boolean
   title?: boolean
-  completed?: boolean
   serviceId?: boolean
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mentorshipStep"]>
@@ -524,7 +594,6 @@ export type MentorshipStepSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   id?: boolean
   order?: boolean
   title?: boolean
-  completed?: boolean
   serviceId?: boolean
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mentorshipStep"]>
@@ -533,13 +602,14 @@ export type MentorshipStepSelectScalar = {
   id?: boolean
   order?: boolean
   title?: boolean
-  completed?: boolean
   serviceId?: boolean
 }
 
-export type MentorshipStepOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "order" | "title" | "completed" | "serviceId", ExtArgs["result"]["mentorshipStep"]>
+export type MentorshipStepOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "order" | "title" | "serviceId", ExtArgs["result"]["mentorshipStep"]>
 export type MentorshipStepInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
+  progress?: boolean | Prisma.MentorshipStep$progressArgs<ExtArgs>
+  _count?: boolean | Prisma.MentorshipStepCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MentorshipStepIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
@@ -552,12 +622,12 @@ export type $MentorshipStepPayload<ExtArgs extends runtime.Types.Extensions.Inte
   name: "MentorshipStep"
   objects: {
     service: Prisma.$ServicePayload<ExtArgs>
+    progress: Prisma.$MentorshipStepProgressPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     order: number
     title: string
-    completed: boolean
     serviceId: string
   }, ExtArgs["result"]["mentorshipStep"]>
   composites: {}
@@ -954,6 +1024,7 @@ readonly fields: MentorshipStepFieldRefs;
 export interface Prisma__MentorshipStepClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   service<T extends Prisma.ServiceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ServiceDefaultArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  progress<T extends Prisma.MentorshipStep$progressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MentorshipStep$progressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MentorshipStepProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -986,7 +1057,6 @@ export interface MentorshipStepFieldRefs {
   readonly id: Prisma.FieldRef<"MentorshipStep", 'String'>
   readonly order: Prisma.FieldRef<"MentorshipStep", 'Int'>
   readonly title: Prisma.FieldRef<"MentorshipStep", 'String'>
-  readonly completed: Prisma.FieldRef<"MentorshipStep", 'Boolean'>
   readonly serviceId: Prisma.FieldRef<"MentorshipStep", 'String'>
 }
     
@@ -1381,6 +1451,30 @@ export type MentorshipStepDeleteManyArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many MentorshipSteps to delete.
    */
   limit?: number
+}
+
+/**
+ * MentorshipStep.progress
+ */
+export type MentorshipStep$progressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MentorshipStepProgress
+   */
+  select?: Prisma.MentorshipStepProgressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MentorshipStepProgress
+   */
+  omit?: Prisma.MentorshipStepProgressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MentorshipStepProgressInclude<ExtArgs> | null
+  where?: Prisma.MentorshipStepProgressWhereInput
+  orderBy?: Prisma.MentorshipStepProgressOrderByWithRelationInput | Prisma.MentorshipStepProgressOrderByWithRelationInput[]
+  cursor?: Prisma.MentorshipStepProgressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MentorshipStepProgressScalarFieldEnum | Prisma.MentorshipStepProgressScalarFieldEnum[]
 }
 
 /**

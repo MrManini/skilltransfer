@@ -54,8 +54,8 @@ export const ModelName = {
   User: 'User',
   Service: 'Service',
   Booking: 'Booking',
-  Payment: 'Payment',
-  MentorshipStep: 'MentorshipStep'
+  MentorshipStep: 'MentorshipStep',
+  MentorshipStepProgress: 'MentorshipStepProgress'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -112,26 +112,25 @@ export const BookingScalarFieldEnum = {
 export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
 
 
-export const PaymentScalarFieldEnum = {
-  id: 'id',
-  amount: 'amount',
-  status: 'status',
-  createdAt: 'createdAt',
-  bookingId: 'bookingId'
-} as const
-
-export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
-
-
 export const MentorshipStepScalarFieldEnum = {
   id: 'id',
   order: 'order',
   title: 'title',
-  completed: 'completed',
   serviceId: 'serviceId'
 } as const
 
 export type MentorshipStepScalarFieldEnum = (typeof MentorshipStepScalarFieldEnum)[keyof typeof MentorshipStepScalarFieldEnum]
+
+
+export const MentorshipStepProgressScalarFieldEnum = {
+  id: 'id',
+  completed: 'completed',
+  createdAt: 'createdAt',
+  clientId: 'clientId',
+  mentorshipStepId: 'mentorshipStepId'
+} as const
+
+export type MentorshipStepProgressScalarFieldEnum = (typeof MentorshipStepProgressScalarFieldEnum)[keyof typeof MentorshipStepProgressScalarFieldEnum]
 
 
 export const SortOrder = {

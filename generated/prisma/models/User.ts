@@ -192,6 +192,7 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   services?: Prisma.ServiceListRelationFilter
   bookings?: Prisma.BookingListRelationFilter
+  stepProgress?: Prisma.MentorshipStepProgressListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -203,6 +204,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   services?: Prisma.ServiceOrderByRelationAggregateInput
   bookings?: Prisma.BookingOrderByRelationAggregateInput
+  stepProgress?: Prisma.MentorshipStepProgressOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -217,6 +219,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   services?: Prisma.ServiceListRelationFilter
   bookings?: Prisma.BookingListRelationFilter
+  stepProgress?: Prisma.MentorshipStepProgressListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -252,6 +255,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   services?: Prisma.ServiceCreateNestedManyWithoutExpertInput
   bookings?: Prisma.BookingCreateNestedManyWithoutClientInput
+  stepProgress?: Prisma.MentorshipStepProgressCreateNestedManyWithoutClientInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -263,6 +267,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutExpertInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutClientInput
+  stepProgress?: Prisma.MentorshipStepProgressUncheckedCreateNestedManyWithoutClientInput
 }
 
 export type UserUpdateInput = {
@@ -274,6 +279,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   services?: Prisma.ServiceUpdateManyWithoutExpertNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutClientNestedInput
+  stepProgress?: Prisma.MentorshipStepProgressUpdateManyWithoutClientNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -285,6 +291,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   services?: Prisma.ServiceUncheckedUpdateManyWithoutExpertNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutClientNestedInput
+  stepProgress?: Prisma.MentorshipStepProgressUncheckedUpdateManyWithoutClientNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -386,6 +393,20 @@ export type UserUpdateOneRequiredWithoutBookingsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBookingsInput, Prisma.UserUpdateWithoutBookingsInput>, Prisma.UserUncheckedUpdateWithoutBookingsInput>
 }
 
+export type UserCreateNestedOneWithoutStepProgressInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStepProgressInput, Prisma.UserUncheckedCreateWithoutStepProgressInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStepProgressInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutStepProgressNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStepProgressInput, Prisma.UserUncheckedCreateWithoutStepProgressInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStepProgressInput
+  upsert?: Prisma.UserUpsertWithoutStepProgressInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStepProgressInput, Prisma.UserUpdateWithoutStepProgressInput>, Prisma.UserUncheckedUpdateWithoutStepProgressInput>
+}
+
 export type UserCreateWithoutServicesInput = {
   id?: string
   name: string
@@ -394,6 +415,7 @@ export type UserCreateWithoutServicesInput = {
   role: $Enums.UserRole
   createdAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutClientInput
+  stepProgress?: Prisma.MentorshipStepProgressCreateNestedManyWithoutClientInput
 }
 
 export type UserUncheckedCreateWithoutServicesInput = {
@@ -404,6 +426,7 @@ export type UserUncheckedCreateWithoutServicesInput = {
   role: $Enums.UserRole
   createdAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutClientInput
+  stepProgress?: Prisma.MentorshipStepProgressUncheckedCreateNestedManyWithoutClientInput
 }
 
 export type UserCreateOrConnectWithoutServicesInput = {
@@ -430,6 +453,7 @@ export type UserUpdateWithoutServicesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutClientNestedInput
+  stepProgress?: Prisma.MentorshipStepProgressUpdateManyWithoutClientNestedInput
 }
 
 export type UserUncheckedUpdateWithoutServicesInput = {
@@ -440,6 +464,7 @@ export type UserUncheckedUpdateWithoutServicesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutClientNestedInput
+  stepProgress?: Prisma.MentorshipStepProgressUncheckedUpdateManyWithoutClientNestedInput
 }
 
 export type UserCreateWithoutBookingsInput = {
@@ -450,6 +475,7 @@ export type UserCreateWithoutBookingsInput = {
   role: $Enums.UserRole
   createdAt?: Date | string
   services?: Prisma.ServiceCreateNestedManyWithoutExpertInput
+  stepProgress?: Prisma.MentorshipStepProgressCreateNestedManyWithoutClientInput
 }
 
 export type UserUncheckedCreateWithoutBookingsInput = {
@@ -460,6 +486,7 @@ export type UserUncheckedCreateWithoutBookingsInput = {
   role: $Enums.UserRole
   createdAt?: Date | string
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutExpertInput
+  stepProgress?: Prisma.MentorshipStepProgressUncheckedCreateNestedManyWithoutClientInput
 }
 
 export type UserCreateOrConnectWithoutBookingsInput = {
@@ -486,6 +513,7 @@ export type UserUpdateWithoutBookingsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   services?: Prisma.ServiceUpdateManyWithoutExpertNestedInput
+  stepProgress?: Prisma.MentorshipStepProgressUpdateManyWithoutClientNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookingsInput = {
@@ -496,6 +524,67 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   services?: Prisma.ServiceUncheckedUpdateManyWithoutExpertNestedInput
+  stepProgress?: Prisma.MentorshipStepProgressUncheckedUpdateManyWithoutClientNestedInput
+}
+
+export type UserCreateWithoutStepProgressInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  role: $Enums.UserRole
+  createdAt?: Date | string
+  services?: Prisma.ServiceCreateNestedManyWithoutExpertInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutClientInput
+}
+
+export type UserUncheckedCreateWithoutStepProgressInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  role: $Enums.UserRole
+  createdAt?: Date | string
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutExpertInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutClientInput
+}
+
+export type UserCreateOrConnectWithoutStepProgressInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutStepProgressInput, Prisma.UserUncheckedCreateWithoutStepProgressInput>
+}
+
+export type UserUpsertWithoutStepProgressInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutStepProgressInput, Prisma.UserUncheckedUpdateWithoutStepProgressInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutStepProgressInput, Prisma.UserUncheckedCreateWithoutStepProgressInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutStepProgressInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutStepProgressInput, Prisma.UserUncheckedUpdateWithoutStepProgressInput>
+}
+
+export type UserUpdateWithoutStepProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  services?: Prisma.ServiceUpdateManyWithoutExpertNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutClientNestedInput
+}
+
+export type UserUncheckedUpdateWithoutStepProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutExpertNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutClientNestedInput
 }
 
 
@@ -506,11 +595,13 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
 export type UserCountOutputType = {
   services: number
   bookings: number
+  stepProgress: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   services?: boolean | UserCountOutputTypeCountServicesArgs
   bookings?: boolean | UserCountOutputTypeCountBookingsArgs
+  stepProgress?: boolean | UserCountOutputTypeCountStepProgressArgs
 }
 
 /**
@@ -537,6 +628,13 @@ export type UserCountOutputTypeCountBookingsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.BookingWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountStepProgressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MentorshipStepProgressWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -547,6 +645,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   services?: boolean | Prisma.User$servicesArgs<ExtArgs>
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
+  stepProgress?: boolean | Prisma.User$stepProgressArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -581,6 +680,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   services?: boolean | Prisma.User$servicesArgs<ExtArgs>
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
+  stepProgress?: boolean | Prisma.User$stepProgressArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -591,6 +691,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     services: Prisma.$ServicePayload<ExtArgs>[]
     bookings: Prisma.$BookingPayload<ExtArgs>[]
+    stepProgress: Prisma.$MentorshipStepProgressPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -995,6 +1096,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   services<T extends Prisma.User$servicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bookings<T extends Prisma.User$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stepProgress<T extends Prisma.User$stepProgressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$stepProgressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MentorshipStepProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1463,6 +1565,30 @@ export type User$bookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.BookingScalarFieldEnum | Prisma.BookingScalarFieldEnum[]
+}
+
+/**
+ * User.stepProgress
+ */
+export type User$stepProgressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MentorshipStepProgress
+   */
+  select?: Prisma.MentorshipStepProgressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MentorshipStepProgress
+   */
+  omit?: Prisma.MentorshipStepProgressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MentorshipStepProgressInclude<ExtArgs> | null
+  where?: Prisma.MentorshipStepProgressWhereInput
+  orderBy?: Prisma.MentorshipStepProgressOrderByWithRelationInput | Prisma.MentorshipStepProgressOrderByWithRelationInput[]
+  cursor?: Prisma.MentorshipStepProgressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MentorshipStepProgressScalarFieldEnum | Prisma.MentorshipStepProgressScalarFieldEnum[]
 }
 
 /**
