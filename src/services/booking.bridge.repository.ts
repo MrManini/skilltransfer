@@ -8,7 +8,7 @@ export interface CreateBookingDTO {
 }
 
 @Injectable()
-export class BookingRepository {
+export class BookingBridgeRepository {
 
   constructor(private readonly prisma: PrismaService) {}
 
