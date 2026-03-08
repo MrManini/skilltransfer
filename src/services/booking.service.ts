@@ -34,21 +34,6 @@ export class BookingService {
     })
   }
 
-  async confirm_2(id: string) {
-    const { context, bookingId } = await this.getBookingContext(id);
-    try {
-      context.confirm();
-    } catch (error) {
-      // Convertimos cualquier Error a BadRequestException
-      throw new BadRequestException(error.message);
-    }
-
-    return this.prisma.booking.update({
-      where: { id: bookingId },
-      data: { status: context.status },
-    });
-  }
-
   async confirm(id: string) {
 
     const booking = await this.prisma.booking.findUnique({
@@ -73,11 +58,16 @@ export class BookingService {
       data: { status: context.status }
     })
   
-    await this.initializeMentorshipProgress(
-      bookingId,
-      booking.serviceId,
-      booking.clientId
-    )
+    // SOLO SI NO ES EJECUTADO
+    if (booking.service.mode !== "EJECUTADO") {
+  
+      await this.initializeMentorshipProgress(
+        bookingId,
+        booking.serviceId,
+        booking.clientId
+      )
+  
+    }
   
     return updatedBooking
   }
