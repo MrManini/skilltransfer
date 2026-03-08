@@ -15,7 +15,26 @@ export class BookingService {
     return { context, bookingId: booking.id };
   }
 
-  async confirm(id: string) {
+  async initializeMentorshipProgress(bookingId: string, serviceId: string, clientId: string) {
+
+    const steps = await this.prisma.mentorshipStep.findMany({
+      where: { serviceId }
+    })
+  
+    const data = steps.map(step => ({
+      bookingId: bookingId,
+      clientId: clientId, // 👈 agregar
+      mentorshipStepId: step.id,
+      completed: false
+    }))
+  
+    return this.prisma.mentorshipStepProgress.createMany({
+      data,
+      skipDuplicates: true
+    })
+  }
+
+  async confirm_2(id: string) {
     const { context, bookingId } = await this.getBookingContext(id);
     try {
       context.confirm();
@@ -28,6 +47,39 @@ export class BookingService {
       where: { id: bookingId },
       data: { status: context.status },
     });
+  }
+
+  async confirm(id: string) {
+
+    const booking = await this.prisma.booking.findUnique({
+      where: { id },
+      include: { service: true }
+    })
+  
+    if (!booking) {
+      throw new NotFoundException(`Booking ${id} no encontrado`)
+    }
+  
+    const { context, bookingId } = await this.getBookingContext(id)
+  
+    try {
+      context.confirm()
+    } catch (error) {
+      throw new BadRequestException(error.message)
+    }
+  
+    const updatedBooking = await this.prisma.booking.update({
+      where: { id: bookingId },
+      data: { status: context.status }
+    })
+  
+    await this.initializeMentorshipProgress(
+      bookingId,
+      booking.serviceId,
+      booking.clientId
+    )
+  
+    return updatedBooking
   }
 
   async complete(id: string) {

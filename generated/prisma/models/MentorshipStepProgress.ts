@@ -28,6 +28,7 @@ export type MentorshipStepProgressMinAggregateOutputType = {
   id: string | null
   completed: boolean | null
   createdAt: Date | null
+  bookingId: string | null
   clientId: string | null
   mentorshipStepId: string | null
 }
@@ -36,6 +37,7 @@ export type MentorshipStepProgressMaxAggregateOutputType = {
   id: string | null
   completed: boolean | null
   createdAt: Date | null
+  bookingId: string | null
   clientId: string | null
   mentorshipStepId: string | null
 }
@@ -44,6 +46,7 @@ export type MentorshipStepProgressCountAggregateOutputType = {
   id: number
   completed: number
   createdAt: number
+  bookingId: number
   clientId: number
   mentorshipStepId: number
   _all: number
@@ -54,6 +57,7 @@ export type MentorshipStepProgressMinAggregateInputType = {
   id?: true
   completed?: true
   createdAt?: true
+  bookingId?: true
   clientId?: true
   mentorshipStepId?: true
 }
@@ -62,6 +66,7 @@ export type MentorshipStepProgressMaxAggregateInputType = {
   id?: true
   completed?: true
   createdAt?: true
+  bookingId?: true
   clientId?: true
   mentorshipStepId?: true
 }
@@ -70,6 +75,7 @@ export type MentorshipStepProgressCountAggregateInputType = {
   id?: true
   completed?: true
   createdAt?: true
+  bookingId?: true
   clientId?: true
   mentorshipStepId?: true
   _all?: true
@@ -151,6 +157,7 @@ export type MentorshipStepProgressGroupByOutputType = {
   id: string
   completed: boolean
   createdAt: Date
+  bookingId: string
   clientId: string
   mentorshipStepId: string
   _count: MentorshipStepProgressCountAggregateOutputType | null
@@ -180,8 +187,10 @@ export type MentorshipStepProgressWhereInput = {
   id?: Prisma.StringFilter<"MentorshipStepProgress"> | string
   completed?: Prisma.BoolFilter<"MentorshipStepProgress"> | boolean
   createdAt?: Prisma.DateTimeFilter<"MentorshipStepProgress"> | Date | string
+  bookingId?: Prisma.StringFilter<"MentorshipStepProgress"> | string
   clientId?: Prisma.StringFilter<"MentorshipStepProgress"> | string
   mentorshipStepId?: Prisma.StringFilter<"MentorshipStepProgress"> | string
+  booking?: Prisma.XOR<Prisma.BookingScalarRelationFilter, Prisma.BookingWhereInput>
   client?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   mentorshipStep?: Prisma.XOR<Prisma.MentorshipStepScalarRelationFilter, Prisma.MentorshipStepWhereInput>
 }
@@ -190,30 +199,35 @@ export type MentorshipStepProgressOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   completed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  bookingId?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   mentorshipStepId?: Prisma.SortOrder
+  booking?: Prisma.BookingOrderByWithRelationInput
   client?: Prisma.UserOrderByWithRelationInput
   mentorshipStep?: Prisma.MentorshipStepOrderByWithRelationInput
 }
 
 export type MentorshipStepProgressWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  clientId_mentorshipStepId?: Prisma.MentorshipStepProgressClientIdMentorshipStepIdCompoundUniqueInput
+  bookingId_mentorshipStepId?: Prisma.MentorshipStepProgressBookingIdMentorshipStepIdCompoundUniqueInput
   AND?: Prisma.MentorshipStepProgressWhereInput | Prisma.MentorshipStepProgressWhereInput[]
   OR?: Prisma.MentorshipStepProgressWhereInput[]
   NOT?: Prisma.MentorshipStepProgressWhereInput | Prisma.MentorshipStepProgressWhereInput[]
   completed?: Prisma.BoolFilter<"MentorshipStepProgress"> | boolean
   createdAt?: Prisma.DateTimeFilter<"MentorshipStepProgress"> | Date | string
+  bookingId?: Prisma.StringFilter<"MentorshipStepProgress"> | string
   clientId?: Prisma.StringFilter<"MentorshipStepProgress"> | string
   mentorshipStepId?: Prisma.StringFilter<"MentorshipStepProgress"> | string
+  booking?: Prisma.XOR<Prisma.BookingScalarRelationFilter, Prisma.BookingWhereInput>
   client?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   mentorshipStep?: Prisma.XOR<Prisma.MentorshipStepScalarRelationFilter, Prisma.MentorshipStepWhereInput>
-}, "id" | "clientId_mentorshipStepId">
+}, "id" | "bookingId_mentorshipStepId">
 
 export type MentorshipStepProgressOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   completed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  bookingId?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   mentorshipStepId?: Prisma.SortOrder
   _count?: Prisma.MentorshipStepProgressCountOrderByAggregateInput
@@ -228,6 +242,7 @@ export type MentorshipStepProgressScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"MentorshipStepProgress"> | string
   completed?: Prisma.BoolWithAggregatesFilter<"MentorshipStepProgress"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MentorshipStepProgress"> | Date | string
+  bookingId?: Prisma.StringWithAggregatesFilter<"MentorshipStepProgress"> | string
   clientId?: Prisma.StringWithAggregatesFilter<"MentorshipStepProgress"> | string
   mentorshipStepId?: Prisma.StringWithAggregatesFilter<"MentorshipStepProgress"> | string
 }
@@ -236,6 +251,7 @@ export type MentorshipStepProgressCreateInput = {
   id?: string
   completed?: boolean
   createdAt?: Date | string
+  booking: Prisma.BookingCreateNestedOneWithoutStepProgressInput
   client: Prisma.UserCreateNestedOneWithoutStepProgressInput
   mentorshipStep: Prisma.MentorshipStepCreateNestedOneWithoutProgressInput
 }
@@ -244,6 +260,7 @@ export type MentorshipStepProgressUncheckedCreateInput = {
   id?: string
   completed?: boolean
   createdAt?: Date | string
+  bookingId: string
   clientId: string
   mentorshipStepId: string
 }
@@ -252,6 +269,7 @@ export type MentorshipStepProgressUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  booking?: Prisma.BookingUpdateOneRequiredWithoutStepProgressNestedInput
   client?: Prisma.UserUpdateOneRequiredWithoutStepProgressNestedInput
   mentorshipStep?: Prisma.MentorshipStepUpdateOneRequiredWithoutProgressNestedInput
 }
@@ -260,6 +278,7 @@ export type MentorshipStepProgressUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
   mentorshipStepId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -268,6 +287,7 @@ export type MentorshipStepProgressCreateManyInput = {
   id?: string
   completed?: boolean
   createdAt?: Date | string
+  bookingId: string
   clientId: string
   mentorshipStepId: string
 }
@@ -282,6 +302,7 @@ export type MentorshipStepProgressUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
   mentorshipStepId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -296,8 +317,8 @@ export type MentorshipStepProgressOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type MentorshipStepProgressClientIdMentorshipStepIdCompoundUniqueInput = {
-  clientId: string
+export type MentorshipStepProgressBookingIdMentorshipStepIdCompoundUniqueInput = {
+  bookingId: string
   mentorshipStepId: string
 }
 
@@ -305,6 +326,7 @@ export type MentorshipStepProgressCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   completed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  bookingId?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   mentorshipStepId?: Prisma.SortOrder
 }
@@ -313,6 +335,7 @@ export type MentorshipStepProgressMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   completed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  bookingId?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   mentorshipStepId?: Prisma.SortOrder
 }
@@ -321,6 +344,7 @@ export type MentorshipStepProgressMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   completed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  bookingId?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   mentorshipStepId?: Prisma.SortOrder
 }
@@ -364,6 +388,48 @@ export type MentorshipStepProgressUncheckedUpdateManyWithoutClientNestedInput = 
   connect?: Prisma.MentorshipStepProgressWhereUniqueInput | Prisma.MentorshipStepProgressWhereUniqueInput[]
   update?: Prisma.MentorshipStepProgressUpdateWithWhereUniqueWithoutClientInput | Prisma.MentorshipStepProgressUpdateWithWhereUniqueWithoutClientInput[]
   updateMany?: Prisma.MentorshipStepProgressUpdateManyWithWhereWithoutClientInput | Prisma.MentorshipStepProgressUpdateManyWithWhereWithoutClientInput[]
+  deleteMany?: Prisma.MentorshipStepProgressScalarWhereInput | Prisma.MentorshipStepProgressScalarWhereInput[]
+}
+
+export type MentorshipStepProgressCreateNestedManyWithoutBookingInput = {
+  create?: Prisma.XOR<Prisma.MentorshipStepProgressCreateWithoutBookingInput, Prisma.MentorshipStepProgressUncheckedCreateWithoutBookingInput> | Prisma.MentorshipStepProgressCreateWithoutBookingInput[] | Prisma.MentorshipStepProgressUncheckedCreateWithoutBookingInput[]
+  connectOrCreate?: Prisma.MentorshipStepProgressCreateOrConnectWithoutBookingInput | Prisma.MentorshipStepProgressCreateOrConnectWithoutBookingInput[]
+  createMany?: Prisma.MentorshipStepProgressCreateManyBookingInputEnvelope
+  connect?: Prisma.MentorshipStepProgressWhereUniqueInput | Prisma.MentorshipStepProgressWhereUniqueInput[]
+}
+
+export type MentorshipStepProgressUncheckedCreateNestedManyWithoutBookingInput = {
+  create?: Prisma.XOR<Prisma.MentorshipStepProgressCreateWithoutBookingInput, Prisma.MentorshipStepProgressUncheckedCreateWithoutBookingInput> | Prisma.MentorshipStepProgressCreateWithoutBookingInput[] | Prisma.MentorshipStepProgressUncheckedCreateWithoutBookingInput[]
+  connectOrCreate?: Prisma.MentorshipStepProgressCreateOrConnectWithoutBookingInput | Prisma.MentorshipStepProgressCreateOrConnectWithoutBookingInput[]
+  createMany?: Prisma.MentorshipStepProgressCreateManyBookingInputEnvelope
+  connect?: Prisma.MentorshipStepProgressWhereUniqueInput | Prisma.MentorshipStepProgressWhereUniqueInput[]
+}
+
+export type MentorshipStepProgressUpdateManyWithoutBookingNestedInput = {
+  create?: Prisma.XOR<Prisma.MentorshipStepProgressCreateWithoutBookingInput, Prisma.MentorshipStepProgressUncheckedCreateWithoutBookingInput> | Prisma.MentorshipStepProgressCreateWithoutBookingInput[] | Prisma.MentorshipStepProgressUncheckedCreateWithoutBookingInput[]
+  connectOrCreate?: Prisma.MentorshipStepProgressCreateOrConnectWithoutBookingInput | Prisma.MentorshipStepProgressCreateOrConnectWithoutBookingInput[]
+  upsert?: Prisma.MentorshipStepProgressUpsertWithWhereUniqueWithoutBookingInput | Prisma.MentorshipStepProgressUpsertWithWhereUniqueWithoutBookingInput[]
+  createMany?: Prisma.MentorshipStepProgressCreateManyBookingInputEnvelope
+  set?: Prisma.MentorshipStepProgressWhereUniqueInput | Prisma.MentorshipStepProgressWhereUniqueInput[]
+  disconnect?: Prisma.MentorshipStepProgressWhereUniqueInput | Prisma.MentorshipStepProgressWhereUniqueInput[]
+  delete?: Prisma.MentorshipStepProgressWhereUniqueInput | Prisma.MentorshipStepProgressWhereUniqueInput[]
+  connect?: Prisma.MentorshipStepProgressWhereUniqueInput | Prisma.MentorshipStepProgressWhereUniqueInput[]
+  update?: Prisma.MentorshipStepProgressUpdateWithWhereUniqueWithoutBookingInput | Prisma.MentorshipStepProgressUpdateWithWhereUniqueWithoutBookingInput[]
+  updateMany?: Prisma.MentorshipStepProgressUpdateManyWithWhereWithoutBookingInput | Prisma.MentorshipStepProgressUpdateManyWithWhereWithoutBookingInput[]
+  deleteMany?: Prisma.MentorshipStepProgressScalarWhereInput | Prisma.MentorshipStepProgressScalarWhereInput[]
+}
+
+export type MentorshipStepProgressUncheckedUpdateManyWithoutBookingNestedInput = {
+  create?: Prisma.XOR<Prisma.MentorshipStepProgressCreateWithoutBookingInput, Prisma.MentorshipStepProgressUncheckedCreateWithoutBookingInput> | Prisma.MentorshipStepProgressCreateWithoutBookingInput[] | Prisma.MentorshipStepProgressUncheckedCreateWithoutBookingInput[]
+  connectOrCreate?: Prisma.MentorshipStepProgressCreateOrConnectWithoutBookingInput | Prisma.MentorshipStepProgressCreateOrConnectWithoutBookingInput[]
+  upsert?: Prisma.MentorshipStepProgressUpsertWithWhereUniqueWithoutBookingInput | Prisma.MentorshipStepProgressUpsertWithWhereUniqueWithoutBookingInput[]
+  createMany?: Prisma.MentorshipStepProgressCreateManyBookingInputEnvelope
+  set?: Prisma.MentorshipStepProgressWhereUniqueInput | Prisma.MentorshipStepProgressWhereUniqueInput[]
+  disconnect?: Prisma.MentorshipStepProgressWhereUniqueInput | Prisma.MentorshipStepProgressWhereUniqueInput[]
+  delete?: Prisma.MentorshipStepProgressWhereUniqueInput | Prisma.MentorshipStepProgressWhereUniqueInput[]
+  connect?: Prisma.MentorshipStepProgressWhereUniqueInput | Prisma.MentorshipStepProgressWhereUniqueInput[]
+  update?: Prisma.MentorshipStepProgressUpdateWithWhereUniqueWithoutBookingInput | Prisma.MentorshipStepProgressUpdateWithWhereUniqueWithoutBookingInput[]
+  updateMany?: Prisma.MentorshipStepProgressUpdateManyWithWhereWithoutBookingInput | Prisma.MentorshipStepProgressUpdateManyWithWhereWithoutBookingInput[]
   deleteMany?: Prisma.MentorshipStepProgressScalarWhereInput | Prisma.MentorshipStepProgressScalarWhereInput[]
 }
 
@@ -417,6 +483,7 @@ export type MentorshipStepProgressCreateWithoutClientInput = {
   id?: string
   completed?: boolean
   createdAt?: Date | string
+  booking: Prisma.BookingCreateNestedOneWithoutStepProgressInput
   mentorshipStep: Prisma.MentorshipStepCreateNestedOneWithoutProgressInput
 }
 
@@ -424,6 +491,7 @@ export type MentorshipStepProgressUncheckedCreateWithoutClientInput = {
   id?: string
   completed?: boolean
   createdAt?: Date | string
+  bookingId: string
   mentorshipStepId: string
 }
 
@@ -460,14 +528,58 @@ export type MentorshipStepProgressScalarWhereInput = {
   id?: Prisma.StringFilter<"MentorshipStepProgress"> | string
   completed?: Prisma.BoolFilter<"MentorshipStepProgress"> | boolean
   createdAt?: Prisma.DateTimeFilter<"MentorshipStepProgress"> | Date | string
+  bookingId?: Prisma.StringFilter<"MentorshipStepProgress"> | string
   clientId?: Prisma.StringFilter<"MentorshipStepProgress"> | string
   mentorshipStepId?: Prisma.StringFilter<"MentorshipStepProgress"> | string
+}
+
+export type MentorshipStepProgressCreateWithoutBookingInput = {
+  id?: string
+  completed?: boolean
+  createdAt?: Date | string
+  client: Prisma.UserCreateNestedOneWithoutStepProgressInput
+  mentorshipStep: Prisma.MentorshipStepCreateNestedOneWithoutProgressInput
+}
+
+export type MentorshipStepProgressUncheckedCreateWithoutBookingInput = {
+  id?: string
+  completed?: boolean
+  createdAt?: Date | string
+  clientId: string
+  mentorshipStepId: string
+}
+
+export type MentorshipStepProgressCreateOrConnectWithoutBookingInput = {
+  where: Prisma.MentorshipStepProgressWhereUniqueInput
+  create: Prisma.XOR<Prisma.MentorshipStepProgressCreateWithoutBookingInput, Prisma.MentorshipStepProgressUncheckedCreateWithoutBookingInput>
+}
+
+export type MentorshipStepProgressCreateManyBookingInputEnvelope = {
+  data: Prisma.MentorshipStepProgressCreateManyBookingInput | Prisma.MentorshipStepProgressCreateManyBookingInput[]
+  skipDuplicates?: boolean
+}
+
+export type MentorshipStepProgressUpsertWithWhereUniqueWithoutBookingInput = {
+  where: Prisma.MentorshipStepProgressWhereUniqueInput
+  update: Prisma.XOR<Prisma.MentorshipStepProgressUpdateWithoutBookingInput, Prisma.MentorshipStepProgressUncheckedUpdateWithoutBookingInput>
+  create: Prisma.XOR<Prisma.MentorshipStepProgressCreateWithoutBookingInput, Prisma.MentorshipStepProgressUncheckedCreateWithoutBookingInput>
+}
+
+export type MentorshipStepProgressUpdateWithWhereUniqueWithoutBookingInput = {
+  where: Prisma.MentorshipStepProgressWhereUniqueInput
+  data: Prisma.XOR<Prisma.MentorshipStepProgressUpdateWithoutBookingInput, Prisma.MentorshipStepProgressUncheckedUpdateWithoutBookingInput>
+}
+
+export type MentorshipStepProgressUpdateManyWithWhereWithoutBookingInput = {
+  where: Prisma.MentorshipStepProgressScalarWhereInput
+  data: Prisma.XOR<Prisma.MentorshipStepProgressUpdateManyMutationInput, Prisma.MentorshipStepProgressUncheckedUpdateManyWithoutBookingInput>
 }
 
 export type MentorshipStepProgressCreateWithoutMentorshipStepInput = {
   id?: string
   completed?: boolean
   createdAt?: Date | string
+  booking: Prisma.BookingCreateNestedOneWithoutStepProgressInput
   client: Prisma.UserCreateNestedOneWithoutStepProgressInput
 }
 
@@ -475,6 +587,7 @@ export type MentorshipStepProgressUncheckedCreateWithoutMentorshipStepInput = {
   id?: string
   completed?: boolean
   createdAt?: Date | string
+  bookingId: string
   clientId: string
 }
 
@@ -508,6 +621,7 @@ export type MentorshipStepProgressCreateManyClientInput = {
   id?: string
   completed?: boolean
   createdAt?: Date | string
+  bookingId: string
   mentorshipStepId: string
 }
 
@@ -515,6 +629,7 @@ export type MentorshipStepProgressUpdateWithoutClientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  booking?: Prisma.BookingUpdateOneRequiredWithoutStepProgressNestedInput
   mentorshipStep?: Prisma.MentorshipStepUpdateOneRequiredWithoutProgressNestedInput
 }
 
@@ -522,6 +637,7 @@ export type MentorshipStepProgressUncheckedUpdateWithoutClientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   mentorshipStepId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -529,6 +645,39 @@ export type MentorshipStepProgressUncheckedUpdateManyWithoutClientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
+  mentorshipStepId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type MentorshipStepProgressCreateManyBookingInput = {
+  id?: string
+  completed?: boolean
+  createdAt?: Date | string
+  clientId: string
+  mentorshipStepId: string
+}
+
+export type MentorshipStepProgressUpdateWithoutBookingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  client?: Prisma.UserUpdateOneRequiredWithoutStepProgressNestedInput
+  mentorshipStep?: Prisma.MentorshipStepUpdateOneRequiredWithoutProgressNestedInput
+}
+
+export type MentorshipStepProgressUncheckedUpdateWithoutBookingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  mentorshipStepId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type MentorshipStepProgressUncheckedUpdateManyWithoutBookingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
   mentorshipStepId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -536,6 +685,7 @@ export type MentorshipStepProgressCreateManyMentorshipStepInput = {
   id?: string
   completed?: boolean
   createdAt?: Date | string
+  bookingId: string
   clientId: string
 }
 
@@ -543,6 +693,7 @@ export type MentorshipStepProgressUpdateWithoutMentorshipStepInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  booking?: Prisma.BookingUpdateOneRequiredWithoutStepProgressNestedInput
   client?: Prisma.UserUpdateOneRequiredWithoutStepProgressNestedInput
 }
 
@@ -550,6 +701,7 @@ export type MentorshipStepProgressUncheckedUpdateWithoutMentorshipStepInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -557,6 +709,7 @@ export type MentorshipStepProgressUncheckedUpdateManyWithoutMentorshipStepInput 
   id?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookingId?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -566,8 +719,10 @@ export type MentorshipStepProgressSelect<ExtArgs extends runtime.Types.Extension
   id?: boolean
   completed?: boolean
   createdAt?: boolean
+  bookingId?: boolean
   clientId?: boolean
   mentorshipStepId?: boolean
+  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
   client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   mentorshipStep?: boolean | Prisma.MentorshipStepDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mentorshipStepProgress"]>
@@ -576,8 +731,10 @@ export type MentorshipStepProgressSelectCreateManyAndReturn<ExtArgs extends runt
   id?: boolean
   completed?: boolean
   createdAt?: boolean
+  bookingId?: boolean
   clientId?: boolean
   mentorshipStepId?: boolean
+  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
   client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   mentorshipStep?: boolean | Prisma.MentorshipStepDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mentorshipStepProgress"]>
@@ -586,8 +743,10 @@ export type MentorshipStepProgressSelectUpdateManyAndReturn<ExtArgs extends runt
   id?: boolean
   completed?: boolean
   createdAt?: boolean
+  bookingId?: boolean
   clientId?: boolean
   mentorshipStepId?: boolean
+  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
   client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   mentorshipStep?: boolean | Prisma.MentorshipStepDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mentorshipStepProgress"]>
@@ -596,20 +755,24 @@ export type MentorshipStepProgressSelectScalar = {
   id?: boolean
   completed?: boolean
   createdAt?: boolean
+  bookingId?: boolean
   clientId?: boolean
   mentorshipStepId?: boolean
 }
 
-export type MentorshipStepProgressOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "completed" | "createdAt" | "clientId" | "mentorshipStepId", ExtArgs["result"]["mentorshipStepProgress"]>
+export type MentorshipStepProgressOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "completed" | "createdAt" | "bookingId" | "clientId" | "mentorshipStepId", ExtArgs["result"]["mentorshipStepProgress"]>
 export type MentorshipStepProgressInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
   client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   mentorshipStep?: boolean | Prisma.MentorshipStepDefaultArgs<ExtArgs>
 }
 export type MentorshipStepProgressIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
   client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   mentorshipStep?: boolean | Prisma.MentorshipStepDefaultArgs<ExtArgs>
 }
 export type MentorshipStepProgressIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  booking?: boolean | Prisma.BookingDefaultArgs<ExtArgs>
   client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   mentorshipStep?: boolean | Prisma.MentorshipStepDefaultArgs<ExtArgs>
 }
@@ -617,6 +780,7 @@ export type MentorshipStepProgressIncludeUpdateManyAndReturn<ExtArgs extends run
 export type $MentorshipStepProgressPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "MentorshipStepProgress"
   objects: {
+    booking: Prisma.$BookingPayload<ExtArgs>
     client: Prisma.$UserPayload<ExtArgs>
     mentorshipStep: Prisma.$MentorshipStepPayload<ExtArgs>
   }
@@ -624,6 +788,7 @@ export type $MentorshipStepProgressPayload<ExtArgs extends runtime.Types.Extensi
     id: string
     completed: boolean
     createdAt: Date
+    bookingId: string
     clientId: string
     mentorshipStepId: string
   }, ExtArgs["result"]["mentorshipStepProgress"]>
@@ -1020,6 +1185,7 @@ readonly fields: MentorshipStepProgressFieldRefs;
  */
 export interface Prisma__MentorshipStepProgressClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  booking<T extends Prisma.BookingDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BookingDefaultArgs<ExtArgs>>): Prisma.Prisma__BookingClient<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   client<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   mentorshipStep<T extends Prisma.MentorshipStepDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MentorshipStepDefaultArgs<ExtArgs>>): Prisma.Prisma__MentorshipStepClient<runtime.Types.Result.GetResult<Prisma.$MentorshipStepPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1054,6 +1220,7 @@ export interface MentorshipStepProgressFieldRefs {
   readonly id: Prisma.FieldRef<"MentorshipStepProgress", 'String'>
   readonly completed: Prisma.FieldRef<"MentorshipStepProgress", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"MentorshipStepProgress", 'DateTime'>
+  readonly bookingId: Prisma.FieldRef<"MentorshipStepProgress", 'String'>
   readonly clientId: Prisma.FieldRef<"MentorshipStepProgress", 'String'>
   readonly mentorshipStepId: Prisma.FieldRef<"MentorshipStepProgress", 'String'>
 }

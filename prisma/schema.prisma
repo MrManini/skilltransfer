@@ -50,8 +50,8 @@ model User {
   role      UserRole
   createdAt DateTime @default(now())
 
-  services  Service[]  // si es experto
-  bookings  Booking[]  // si es cliente
+  services  Service[]
+  bookings  Booking[]
 
   stepProgress MentorshipStepProgress[]
 }
@@ -91,6 +91,8 @@ model Booking {
 
   clientId    String
   client      User          @relation(fields: [clientId], references: [id])
+
+  stepProgress MentorshipStepProgress[]
 }
 
 //////////////////////////////////////////////////////
@@ -119,11 +121,14 @@ model MentorshipStepProgress {
   completed        Boolean  @default(false)
   createdAt        DateTime @default(now())
 
+  bookingId        String
+  booking          Booking  @relation(fields: [bookingId], references: [id])
+
   clientId         String
   client           User     @relation(fields: [clientId], references: [id])
 
   mentorshipStepId String
   mentorshipStep   MentorshipStep @relation(fields: [mentorshipStepId], references: [id])
 
-  @@unique([clientId, mentorshipStepId])
+  @@unique([bookingId, mentorshipStepId])
 }

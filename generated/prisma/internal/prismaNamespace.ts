@@ -869,6 +869,7 @@ export const MentorshipStepProgressScalarFieldEnum = {
   id: 'id',
   completed: 'completed',
   createdAt: 'createdAt',
+  bookingId: 'bookingId',
   clientId: 'clientId',
   mentorshipStepId: 'mentorshipStepId'
 } as const

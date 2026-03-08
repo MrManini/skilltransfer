@@ -67,19 +67,19 @@ INSERT INTO "MentorshipStep" (
 )
 VALUES
 (
-'step-1',
+'st00001',
 1,
 'Introducción a arquitectura backend',
 'service-1'
 ),
 (
-'step-2',
+'st00002',
 2,
 'Creación de API con NestJS',
 'service-1'
 ),
 (
-'step-3',
+'st00003',
 3,
 'Integración con base de datos',
 'service-1'
@@ -98,13 +98,13 @@ INSERT INTO "MentorshipStep" (
 )
 VALUES
 (
-'step-4',
+'st00004',
 1,
 'Analizar el problema',
 'service-2'
 ),
 (
-'step-5',
+'st00005',
 2,
 'Debugging paso a paso',
 'service-2'
