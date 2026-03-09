@@ -70,8 +70,10 @@ export const api = {
     return res.json()
   },
 
-  async completeStep(serviceId: string, bookingId: string): Promise<MentorshipStep> {
-    const res = await fetch(`${API_BASE}/iterator/${serviceId}/complete-step/${bookingId}`)
+  async completeStep(serviceId: string, bookingId: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/iterator/${serviceId}/complete-step/${bookingId}`, {
+      method: 'POST',
+    })
     if (!res.ok) throw new Error('Failed to complete step')
     return res.json()
   },

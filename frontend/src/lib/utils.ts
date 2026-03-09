@@ -25,7 +25,7 @@ export function getModeLabel(mode: string): string {
   const labels: Record<string, string> = {
     MENTORIA: 'Mentorship',
     HIBRIDO: 'Hybrid',
-    EJECUTADO: 'Done for You',
+    EJECUTADO: 'Service',
   }
   return labels[mode] || mode
 }

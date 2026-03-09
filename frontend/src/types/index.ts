@@ -19,9 +19,12 @@ export interface Booking {
 }
 
 export interface MentorshipStep {
-  stepNumber: number
+  id: string
+  order: number
   title: string
-  description: string
-  isCompleted: boolean
-  totalSteps: number
+  serviceId: string
+  totalSteps?: number
+  completedSteps?: number
+  currentStepNumber?: number
+  message?: string
 }

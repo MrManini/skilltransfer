@@ -128,7 +128,7 @@ export default function BookingFormPage() {
                 required
               />
               <p className="text-xs text-muted-foreground">
-                Using default client ID for demo purposes
+                Enter your unique client ID to identify yourself for this booking.
               </p>
             </div>
 
