@@ -99,4 +99,22 @@ export class BookingService {
       data: { status: context.status },
     });
   }
+
+  async getBookingsByClient(clientId: string) {
+
+    const bookings = await this.prisma.booking.findMany({
+      where: {
+        clientId: clientId
+      },
+      include: {
+        service: true
+      },
+      orderBy: {
+        scheduledAt: 'desc'
+      }
+    })
+  
+    return bookings
+  
+  }
 }

@@ -22,4 +22,9 @@ export class BookingController {
     return this.bookingService.cancel(id);
   }
 
+  @Get('client/:clientId')
+  getBookingsByClient(@Param('clientId') clientId: string) {
+  return this.bookingService.getBookingsByClient(clientId)
+}
+
 }
