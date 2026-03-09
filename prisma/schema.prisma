@@ -1,8 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// This is your Prisma schema file
 
 generator client {
   provider = "prisma-client"
@@ -11,4 +7,128 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+//////////////////////////////////////////////////////
+// ENUMS
+//////////////////////////////////////////////////////
+
+enum UserRole {
+  CLIENT
+  EXPERT
+}
+
+enum ServiceMode {
+  HIBRIDO
+  MENTORIA
+  EJECUTADO
+}
+
+enum InteractionType {
+  VIDEO_CALL
+  CHAT
+  LIVE_CODING
+  NONE
+}
+
+enum BookingStatus {
+  PENDIENTE
+  CONFIRMADA
+  COMPLETADA
+  CANCELADA
+}
+
+//////////////////////////////////////////////////////
+// MODELOS
+//////////////////////////////////////////////////////
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      UserRole
+  createdAt DateTime @default(now())
+
+  services  Service[]
+  bookings  Booking[]
+
+  stepProgress MentorshipStepProgress[]
+}
+
+//////////////////////////////////////////////////////
+// SERVICIOS
+//////////////////////////////////////////////////////
+
+model Service {
+  id              String          @id @default(uuid())
+  title           String
+  description     String
+  price           Float
+  mode            ServiceMode
+  interactionType InteractionType
+  createdAt       DateTime        @default(now())
+
+  expertId        String
+  expert          User            @relation(fields: [expertId], references: [id])
+
+  bookings        Booking[]
+  steps           MentorshipStep[]
+}
+
+//////////////////////////////////////////////////////
+// RESERVAS
+//////////////////////////////////////////////////////
+
+model Booking {
+  id          String        @id @default(uuid())
+  scheduledAt DateTime
+  status      BookingStatus @default(PENDIENTE)
+  createdAt   DateTime      @default(now())
+
+  serviceId   String
+  service     Service       @relation(fields: [serviceId], references: [id])
+
+  clientId    String
+  client      User          @relation(fields: [clientId], references: [id])
+
+  stepProgress MentorshipStepProgress[]
+}
+
+//////////////////////////////////////////////////////
+// PASOS DE MENTORIA
+//////////////////////////////////////////////////////
+
+model MentorshipStep {
+  id        String   @id @default(uuid())
+  order     Int
+  title     String
+
+  serviceId String
+  service   Service  @relation(fields: [serviceId], references: [id])
+
+  progress  MentorshipStepProgress[]
+
+  @@unique([serviceId, order])
+}
+
+//////////////////////////////////////////////////////
+// PROGRESO DEL CLIENTE EN LOS PASOS
+//////////////////////////////////////////////////////
+
+model MentorshipStepProgress {
+  id               String   @id @default(uuid())
+  completed        Boolean  @default(false)
+  createdAt        DateTime @default(now())
+
+  bookingId        String
+  booking          Booking  @relation(fields: [bookingId], references: [id])
+
+  clientId         String
+  client           User     @relation(fields: [clientId], references: [id])
+
+  mentorshipStepId String
+  mentorshipStep   MentorshipStep @relation(fields: [mentorshipStepId], references: [id])
+
+  @@unique([bookingId, mentorshipStepId])
 }
